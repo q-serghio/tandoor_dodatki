@@ -9,6 +9,7 @@ Repozytorium zawiera skrypty Pythonowe do:
 1. **Scrapowania składników** z polskich blogów kulinarnych
 2. **Generowania odmian gramatycznych** nazw składników za pomocą LLM
 3. **Tworzenia gotowych zapytań SQL** do wstawienia automatyzacji do bazy Tandoor
+4. **Pobierania dokumentacji** Tandoor z GitHub i oficjalnej strony
 
 ## Struktura plików
 
@@ -16,6 +17,7 @@ Repozytorium zawiera skrypty Pythonowe do:
 | -------------------------------- | --------------------------------------------------- |
 | `main.py`                        | Główny skrypt - generuje SQL z odmianami składników |
 | `blog_scraper.py`                | Scraper pobierający składniki z blogów kulinarnych  |
+| `docs_and_repo_scrap.py`         | Pobieranie dokumentacji i release notes z Tandoor   |
 | `ingredients_list.py`            | Lista bazowych składników (~370 pozycji)            |
 | `brudne_skladniki.txt`           | Surowe dane wyjściowe ze scrapera                   |
 | `tandoor_automations_insert.sql` | Wygenerowane zapytanie SQL                          |
@@ -28,12 +30,13 @@ curl-cffi
 beautifulsoup4
 litellm
 python-dotenv
+requests
 ```
 
 Instalacja:
 
 ```bash
-pip install curl-cffi beautifulsoup4 litellm python-dotenv
+pip install curl-cffi beautifulsoup4 litellm python-dotenv requests
 ```
 
 ## Konfiguracja
@@ -62,6 +65,24 @@ Pobiera składniki z predefiniowanych polskich blogów kulinarnych:
 - smaker.pl
 
 Wyniki zapisuje do `brudne_skladniki.txt`.
+
+### Dokumentacja Tandoor
+
+```bash
+python docs_and_repo_scrap.py
+```
+
+Pobiera:
+
+1. Release notes z GitHub API (`vabene1111/recipes`)
+2. Pliki .md z folderu `/docs` w repozytorium
+3. Treść z oficjalnej strony docs.tandoor.dev
+
+Wyniki:
+
+- `tandoor_releases.txt` - historia wydań
+- `tandoor_docs_summary.txt` - dokumentacja z repo
+- `tandoor_website_docs.txt` - treść ze strony
 
 ### Generator automatyzacji
 
